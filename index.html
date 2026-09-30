@@ -133,6 +133,7 @@
 
 const REPORTS = [
   { nome:"Veraxs Garantidora", desc:"Relatório atualizado", url:"https://veraxs.netlify.app/" },
+  { nome:"Evolução Comercial · Veraxs Garantidora", desc:"Histórico mensal de negócios — 2022 → hoje", url:"relatorios/evolucao-comercial/" },
   { nome:"Concentração de condomínios — Grande Aracaju", desc:"Por região, bairro e classe econômica", url:"relatorios/concentracao-condominios/" }
   // { nome:"Nova empresa", desc:"...", url:"https://..." },
 ];
@@ -140,7 +141,7 @@ const REPORTS = [
 const REQUESTS = [
   {
     titulo:"Histórico mensal de negócios (2022 → hoje)",
-    status:"wait", // "wait" = em preparação | "ok" = pronto
+    status:"ok", // "wait" = em preparação | "ok" = pronto
     pedido:"Histórico de 2022 até hoje, mês a mês: quantidade de negócios fechados e o faturamento de cada um — separando faturamento do condomínio (geral) e a nossa receita (taxa × quantidade de unidades). Evolução mês a mês em gráfico de linha, incluindo a quantidade de condomínios por mês.",
     itens:[
       "Negócios fechados por mês",
@@ -149,7 +150,7 @@ const REQUESTS = [
       "Quantidade de condomínios por mês",
       "Formato: gráfico de linha, 2022 → atual"
     ],
-    link:null
+    link:"relatorios/evolucao-comercial/"
   },
   {
     titulo:"Concentração de condomínios por região e bairro",
