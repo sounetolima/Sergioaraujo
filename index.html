@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal Sérgio Araújo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0d; --panel:#131316; --panel2:#1a1a1f; --line:#2a2a31;
+    --gold:#c39a4d; --gold2:#e0b86a; --text:#f2f2f2; --muted:#9a9aa5;
+    --ok:#4caf7a; --wait:#e0b86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;}
+  .layout{display:grid;grid-template-columns:1fr 1fr;height:100vh}
+
+  /* ESQUERDA — imagem */
+  .hero{position:relative;background:#000;overflow:hidden;order:2}
+  .side{order:1}
+  .hero img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .hero::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(270deg,transparent 80%,var(--bg) 100%);pointer-events:none}
+
+  /* DIREITA — janelas */
+  .side{overflow-y:auto;padding:32px 36px;display:flex;flex-direction:column;gap:20px}
+  header h1{font-family:'Oswald',sans-serif;font-weight:500;font-size:28px;letter-spacing:.06em;text-transform:uppercase}
+  header h1 span{color:var(--gold)}
+  header p{color:var(--muted);font-size:13px;margin-top:4px}
+  .rule{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:14px}
+
+  .win{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .win-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--panel2);border-bottom:1px solid var(--line)}
+  .num{font-family:'Oswald',sans-serif;color:#111;background:var(--gold);width:26px;height:26px;border-radius:50%;
+       display:grid;place-items:center;font-size:14px;font-weight:600;flex:none}
+  .win-head h2{font-family:'Oswald',sans-serif;font-weight:500;font-size:17px;letter-spacing:.05em;text-transform:uppercase}
+  .win-body{padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+
+  /* Relatórios */
+  a.report{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;color:inherit;
+    padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);transition:.2s}
+  a.report:hover{border-color:var(--gold);transform:translateY(-1px)}
+  a.report strong{display:block;font-size:15px}
+  a.report small{color:var(--muted);font-size:12px}
+  a.report .go{color:var(--gold);font-size:20px}
+
+  /* Solicitações */
+  .topic{border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+  .topic summary{cursor:pointer;list-style:none;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:600;font-size:14px}
+  .topic summary::-webkit-details-marker{display:none}
+  .topic summary::after{content:"+";color:var(--gold);font-size:18px}
+  .topic[open] summary::after{content:"–"}
+  .topic .inner{padding:0 16px 14px;color:#cfcfd6;font-size:13px;line-height:1.55}
+  .topic ul{margin:6px 0 10px 18px}
+  .topic li{margin:3px 0}
+  .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+  .badge.wait{color:var(--wait)} .badge.ok{color:var(--ok)}
+  .quote{border-left:2px solid var(--gold);padding-left:12px;color:var(--muted);font-style:italic;margin:8px 0}
+  .tag{display:inline-block;font-size:11px;color:var(--gold2);background:rgba(195,154,77,.1);padding:2px 8px;border-radius:6px;margin:2px 4px 2px 0}
+  .btn{display:inline-block;margin-top:6px;font-size:12px;color:var(--gold2);text-decoration:none;border:1px solid var(--gold);padding:6px 12px;border-radius:8px}
+
+  /* Reuniões */
+  .meet{display:flex;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+  .meet .date{font-family:'Oswald',sans-serif;text-align:center;min-width:52px;color:var(--gold)}
+  .meet .date b{display:block;font-size:22px;line-height:1}
+  .meet .date span{font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+  .meet .info strong{display:block;font-size:14px}
+  .meet .info small{color:var(--muted);font-size:12px}
+  .empty{color:var(--muted);font-size:13px;text-align:center;padding:14px}
+
+  footer{color:var(--muted);font-size:11px;text-align:center;padding:8px 0 4px}
+
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr;height:auto}
+    .hero{height:70vh;order:0}
+    .side{order:1}
+    .hero::after{background:linear-gradient(180deg,transparent 80%,var(--bg) 100%)}
+    .side{overflow:visible;padding:24px 18px}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ESQUERDA -->
+  <section class="hero">
+    <!-- coloque a imagem na mesma pasta com este nome -->
+    <img src="sergio-araujo.jpg" alt="Dr. Sérgio Araújo — Seja Insubstituível">
+  </section>
+
+  <!-- DIREITA -->
+  <main class="side">
+    <header>
+      <h1>Portal <span>Sérgio Araújo</span></h1>
+      <p>Relatórios consolidados e demandas das empresas</p>
+      <div class="rule"></div>
+    </header>
+
+    <!-- JANELA 1 -->
+    <section class="win">
+      <div class="win-head"><div class="num">1</div><h2>Relatórios Atualizados</h2></div>
+      <div class="win-body" id="reports"></div>
+    </section>
+
+    <!-- JANELA 2 -->
+    <section class="win">
+      <div class="win-head"><div class="num">2</div><h2>Solicitações de Sérgio Araújo</h2></div>
+      <div class="win-body" id="requests"></div>
+    </section>
+
+    <!-- JANELA 3 -->
+    <section class="win">
+      <div class="win-head"><div class="num">3</div><h2>Reuniões Agendadas</h2></div>
+      <div class="win-body" id="meetings"></div>
+    </section>
+
+    <footer>Atualizado em <span id="upd"></span></footer>
+  </main>
+</div>
+
+<script>
+/* ====== EDITE AQUI PARA ATUALIZAR O PORTAL ====== */
+
+const REPORTS = [
+  { nome:"Veraxs Garantidora", desc:"Relatório atualizado", url:"https://veraxs.netlify.app/" }
+  // { nome:"Nova empresa", desc:"...", url:"https://..." },
+];
+
+const REQUESTS = [
+  {
+    titulo:"Histórico mensal de negócios (2022 → hoje)",
+    status:"wait", // "wait" = em preparação | "ok" = pronto
+    pedido:"Histórico de 2022 até hoje, mês a mês: quantidade de negócios fechados e o faturamento de cada um — separando faturamento do condomínio (geral) e a nossa receita (taxa × quantidade de unidades). Evolução mês a mês em gráfico de linha, incluindo a quantidade de condomínios por mês.",
+    itens:[
+      "Negócios fechados por mês",
+      "Faturamento do condomínio (geral) por mês",
+      "Nossa receita por mês (taxa × unidades)",
+      "Quantidade de condomínios por mês",
+      "Formato: gráfico de linha, 2022 → atual"
+    ],
+    link:null
+  },
+  {
+    titulo:"Concentração de condomínios por região e bairro",
+    status:"wait",
+    pedido:"Onde estão concentrados os condomínios (negócios fechados), por região e bairro, separados por classe econômica. Foco na Grande Aracaju.",
+    itens:[
+      "Somente negócios fechados",
+      "Recorte por região e bairro",
+      "Separação por classe econômica",
+      "Foco: Grande Aracaju"
+    ],
+    link:null
+  }
+];
+
+const MEETINGS = [
+  // { dia:"02", mes:"out", titulo:"Reunião de resultados", info:"14h — Local / link" }
+];
+
+/* ====== RENDER ====== */
+const $ = id => document.getElementById(id);
+
+$("reports").innerHTML = REPORTS.map(r =>
+  `<a class="report" href="${r.url}" target="_blank" rel="noopener">
+     <div><strong>${r.nome}</strong><small>${r.desc}</small></div><span class="go">↗</span>
+   </a>`).join("") || `<div class="empty">Nenhum relatório publicado.</div>`;
+
+$("requests").innerHTML = REQUESTS.map(t =>
+  `<details class="topic">
+     <summary><span>${t.titulo}</span>
+       <span class="badge ${t.status}">${t.status==="ok"?"Pronto":"Em preparação"}</span></summary>
+     <div class="inner">
+       <div class="quote">${t.pedido}</div>
+       <ul>${t.itens.map(i=>`<li>${i}</li>`).join("")}</ul>
+       ${t.link?`<a class="btn" href="${t.link}" target="_blank" rel="noopener">Abrir relatório ↗</a>`:""}
+     </div>
+   </details>`).join("");
+
+$("meetings").innerHTML = MEETINGS.length
+  ? MEETINGS.map(m =>
+    `<div class="meet"><div class="date"><b>${m.dia}</b><span>${m.mes}</span></div>
+       <div class="info"><strong>${m.titulo}</strong><small>${m.info}</small></div></div>`).join("")
+  : `<div class="empty">Nenhuma reunião agendada no momento.</div>`;
+
+$("upd").textContent = new Date().toLocaleDateString("pt-BR");
+</script>
+</body>
+</html>
