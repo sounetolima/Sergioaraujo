@@ -132,7 +132,8 @@
 /* ====== EDITE AQUI PARA ATUALIZAR O PORTAL ====== */
 
 const REPORTS = [
-  { nome:"Veraxs Garantidora", desc:"Relatório atualizado", url:"https://veraxs.netlify.app/" }
+  { nome:"Veraxs Garantidora", desc:"Relatório atualizado", url:"https://veraxs.netlify.app/" },
+  { nome:"Concentração de condomínios — Grande Aracaju", desc:"Por região, bairro e classe econômica", url:"relatorios/concentracao-condominios/" }
   // { nome:"Nova empresa", desc:"...", url:"https://..." },
 ];
 
@@ -152,7 +153,7 @@ const REQUESTS = [
   },
   {
     titulo:"Concentração de condomínios por região e bairro",
-    status:"wait",
+    status:"ok",
     pedido:"Onde estão concentrados os condomínios (negócios fechados), por região e bairro, separados por classe econômica. Foco na Grande Aracaju.",
     itens:[
       "Somente negócios fechados",
@@ -160,7 +161,7 @@ const REQUESTS = [
       "Separação por classe econômica",
       "Foco: Grande Aracaju"
     ],
-    link:null
+    link:"relatorios/concentracao-condominios/"
   }
 ];
 
@@ -172,7 +173,7 @@ const MEETINGS = [
 const $ = id => document.getElementById(id);
 
 $("reports").innerHTML = REPORTS.map(r =>
-  `<a class="report" href="${r.url}" target="_blank" rel="noopener">
+  `<a class="report" href="${r.url}" ${r.url.startsWith("http")?'target="_blank" rel="noopener"':""}>
      <div><strong>${r.nome}</strong><small>${r.desc}</small></div><span class="go">↗</span>
    </a>`).join("") || `<div class="empty">Nenhum relatório publicado.</div>`;
 
